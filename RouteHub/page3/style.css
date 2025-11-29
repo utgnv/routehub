@@ -1,0 +1,71 @@
+:root{
+  --bg:#f5f7f8;
+  --card:#fff;
+  --muted:#6b7780;
+  --accent:#2f8ccf;
+  --container:1200px;
+}
+*{box-sizing:border-box}
+body{font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;background:var(--bg);margin:0;color:black}
+.container{max-width:var(--container);margin:0 auto;padding:20px}
+.topbar{background:#fff;box-shadow:0 2px 6px rgba(15,20,25,0.06);position:sticky;top:0;z-index:20}
+.topbar .container{display:flex;align-items:center;gap:12px}
+.brand{font-weight:800;padding:12px 0}
+.nav{display:flex;gap:18px;margin-left:20px;color:var(--muted)}
+.actions{margin-left:auto;display:flex;gap:8px}
+.btn{background:var(--accent);color:#145fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer}
+.btn.ghost{background:transparent;color:#145fff;border:1px solid #d7eafc}
+.btn.small{padding:6px 10px;font-size:14px}
+
+
+.logo img {
+  width: 130px;
+  height: auto;
+}
+
+/* search panel */
+.search-panel{padding:18px 0;display:flex;flex-direction:column;gap:10px}
+.found{font-size:22px;margin-bottom:6px}
+.controls{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.filters select, .filters input{padding:8px;border-radius:8px;border:1px solid #e4e8eb;background:#fff}
+.sort-area{color:var(--muted)}
+
+/* list rows (как в скрине — полосы, колонки, кнопки) */
+.list-area{margin-top:10px}
+.list-row{
+  display:grid;
+  grid-template-columns:90px 1fr 260px 220px;
+  gap:12px;
+  align-items:center;
+  background:var(--card);
+  padding:16px;
+  border-radius:6px;
+  margin-bottom:12px;
+  box-shadow:0 6px 18px rgba(15,20,25,0.04);
+}
+.col-km{color:#2f8ccf;font-weight:800}
+.col-transport{font-size:13px;color:var(--muted)}
+.col-route strong{display:inline-block;margin-right:6px}
+.col-meta{
+  text-align:right;
+  color: black;
+
+}
+.small-muted{color:var(--muted);font-size:13px;margin-top:6px}
+.action-row{display:flex;gap:8px;margin-top:8px}
+
+/* price column small text */
+.price-small{font-size:13px;color:var(--muted)}
+
+/* pager */
+.pagination{display:flex;gap:8px;justify-content:center;padding:18px 0}
+.page-btn{background:#fff;border:1px solid #e6eef6;padding:8px 12px;border-radius:6px;cursor:pointer}
+.active-page{background:var(--accent);color:#fff;border:0}
+
+/* responsive */
+@media (max-width:900px){
+  .list-row{grid-template-columns:1fr;gap:8px;padding:12px}
+  .col-meta{text-align:left}
+  .controls{flex-direction:column;align-items:flex-start}
+}

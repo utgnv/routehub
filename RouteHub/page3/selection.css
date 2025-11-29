@@ -1,0 +1,29 @@
+/* selection.css — синяя фиксированная панель */
+.selection-bar {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 18px;
+  background: linear-gradient(180deg,#1e73be,#1a5fb0);
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(23,43,77,0.25);
+  z-index: 9999;
+  padding: 12px 18px;
+  display: none;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: transform .28s ease, opacity .28s ease;
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+}
+.selection-bar.visible { display: block; transform: translateY(0); opacity: 1; }
+.selection-inner { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap }
+.selection-left { font-weight:700; font-size:15px }
+.selection-right { display:flex; gap:10px; align-items:center }
+.selection-btn { background: rgba(255,255,255,0.12); color: white; border: 0; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700 }
+.selection-btn.ghost { background: transparent; border: 1px solid rgba(255,255,255,0.18); padding:7px 11px }
+/* responsive */
+@media(max-width:720px){
+  .selection-inner{flex-direction:column;align-items:flex-start}
+  .selection-right{width:100%; display:flex; justify-content:space-between}
+}

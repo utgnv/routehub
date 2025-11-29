@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Добавить груз</title>
+    <link rel="stylesheet" href="./style.css">
+
+  <style id="injected-design">
+body { background: linear-gradient(180deg, #0b0f14 0%, #1b2630 100%); }
+:root { --bg: #0f1720; --accent: #2b8cff; --muted: #c9d6df; --card-bg: linear-gradient(90deg, var(--accent), #1fa2ff); --card-shadow: 0 10px 25px rgba(2, 6, 23, 0.25); --topbar: #0f1720; }
+</style>
+</head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Добавить груз</title>
+  </head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <div class="logo">
+        <a href="../index.html">
+         <img src="https://i.ibb.co.com/Wv8Gx7DW/2.png" alt="logo">
+        </a>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Left: Form -->
+    <form id="cargoForm" class="card" novalidate>
+      <div class="body">
+
+        <!-- Груз -->
+        <section class="section">
+          <h2>Груз</h2>
+          <div class="grid cols-3">
+            <div>
+              <label for="cargoType">Тип груза</label>
+              <select id="cargoType" name="cargoType" required>
+                <option value="">Выберите</option>
+                <option>Груз в ящике</option>
+                <option>Габаритный груз</option>
+                <option>Сыпучий груз</option>
+                <option>Наливной груз</option>
+                <option>Опасный груз (ADR)</option>
+              </select>
+              <div class="error" data-error="cargoType"></div>
+            </div>
+            <div>
+              <label for="category">Категория</label>
+              <select id="category" name="category" required>
+                <option value="">Выберите</option>
+                <option>Продукты</option>
+                <option>Стройматериалы</option>
+                <option>Оборудование</option>
+                <option>Мебель</option>
+                <option>Текстиль</option>
+              </select>
+              <div class="error" data-error="category"></div>
+            </div>
+            <div>
+              <label for="title">Название</label>
+              <input type="text" id="title" name="title" placeholder="Например: Ящики с яблоками" required />
+              <div class="error" data-error="title"></div>
+            </div>
+          </div>
+
+          <div class="grid cols-3">
+            <div>
+              <label for="readyDate">Дата готовности</label>
+              <input type="date" id="readyDate" name="readyDate" required />
+              <div class="error" data-error="readyDate"></div>
+            </div>
+            <div>
+              <label for="regularity">Регулярность</label>
+              <select id="regularity" name="regularity">
+                <option>Разовая</option>
+                <option>Еженедельно</option>
+                <option>Ежемесячно</option>
+              </select>
+            </div>
+            <div>
+              <label for="places">Кол-во мест</label>
+              <input type="number" id="places" name="places" min="1" step="1" placeholder="1" required />
+              <div class="error" data-error="places"></div>
+            </div>
+          </div>
+
+          <div class="grid cols-3">
+            <div>
+              <label for="weight">Вес, кг</label>
+              <input type="number" id="weight" name="weight" min="0" step="0.1" placeholder="1000" required />
+              <div class="error" data-error="weight"></div>
+            </div>
+            <div>
+              <label for="volume">Объем, м³</label>
+              <input type="number" id="volume" name="volume" min="0" step="0.01" placeholder="2.5" />
+            </div>
+            <div style="display:flex;align-items:flex-end;">
+              <label class="check">
+                <input type="checkbox" id="packed" name="packed" />
+                Груз упакован
+              </label>
+            </div>
+          </div>
+
+          <div class="grid cols-2">
+            <div>
+              <label for="from">Откуда</label>
+              <input type="text" id="from" name="from" placeholder="Город, страна" required />
+              <div class="error" data-error="from"></div>
+            </div>
+            <div>
+              <label for="to">Куда</label>
+              <input type="text" id="to" name="to" placeholder="Город, страна" required />
+              <div class="error" data-error="to"></div>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn" id="addPoint">Добавить промежуточные точки</button>
+            <span class="muted" id="pointsInfo">Нет промежуточных точек</span>
+          </div>
+        </section>
+
+        <!-- Транспорт -->
+        <section class="section">
+          <h2>Транспорт</h2>
+          <label>Тип кузова</label>
+          <div class="checkgroup" id="bodyTypes">
+            <label class="check"><input type="checkbox" value="Тент">Тент</label>
+            <label class="check"><input type="checkbox" value="Рефрижератор">Рефрижератор</label>
+            <label class="check"><input type="checkbox" value="Изотерм">Изотерм</label>
+            <label class="check"><input type="checkbox" value="Фургон">Фургон</label>
+            <label class="check"><input type="checkbox" value="Открытый">Открытый</label>
+            <label class="check"><input type="checkbox" value="Контейнер">Контейнер</label>
+          </div>
+
+          <div class="grid cols-3" style="margin-top:12px;">
+            <div>
+              <label for="tempMode">Температурный режим</label>
+              <select id="tempMode" name="tempMode">
+                <option>Не требуется</option>
+                <option>Холод</option>
+                <option>Заморозка</option>
+                <option>Поддержание +</option>
+              </select>
+            </div>
+            <div>
+              <label>Тип загрузки</label>
+              <div class="checkgroup" id="loadingType">
+                <label class="check"><input type="checkbox" value="Сверху">Сверху</label>
+                <label class="check"><input type="checkbox" value="Сбоку">Сбоку</label>
+                <label class="check"><input type="checkbox" value="Сзади">Сзади</label>
+              </div>
+            </div>
+            <div>
+              <label>Тип выгрузки</label>
+              <div class="checkgroup" id="unloadingType">
+                <label class="check"><input type="checkbox" value="Сверху">Сверху</label>
+                <label class="check"><input type="checkbox" value="Сбоку">Сбоку</label>
+                <label class="check"><input type="checkbox" value="Сзади">Сзади</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid cols-2" style="margin-top:12px;">
+            <div>
+              <label>Способ загрузки</label>
+              <div class="checkgroup" id="loadingMethod">
+                <label class="check"><input type="checkbox" value="Ручная">Ручная</label>
+                <label class="check"><input type="checkbox" value="Погрузчик">Погрузчик</label>
+                <label class="check"><input type="checkbox" value="Гидроборт">Гидроборт</label>
+              </div>
+            </div>
+            <div>
+              <label>Способ выгрузки</label>
+              <div class="checkgroup" id="unloadingMethod">
+                <label class="check"><input type="checkbox" value="Ручная">Ручная</label>
+                <label class="check"><input type="checkbox" value="Погрузчик">Погрузчик</label>
+                <label class="check"><input type="checkbox" value="Гидроборт">Гидроборт</label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Условия -->
+        <section class="section">
+          <h2>Условия</h2>
+          <div class="checkgroup">
+            <label class="check"><input type="checkbox" id="insurance">Страховка</label>
+            <label class="check"><input type="checkbox" id="cmr">CMR</label>
+            <label class="check"><input type="checkbox" id="tir">TIR</label>
+            <label class="check"><input type="checkbox" id="adr">ADR</label>
+          </div>
+
+          <div class="grid cols-3" style="margin-top:12px;">
+            <div>
+              <label for="payment">Оплата</label>
+              <select id="payment" name="payment">
+                <option>наличные</option>
+                <option>на карту</option>
+                <option>безнал</option>
+              </select>
+            </div>
+            <div>
+              <label for="price">Цена</label>
+              <input type="number" id="price" name="price" min="0" step="1" placeholder="100000" />
+            </div>
+            <div>
+              <label for="currency">Валюта</label>
+              <select id="currency" name="currency">
+                <option>KZT</option>
+                <option>RUB</option>
+                <option>USD</option>
+                <option>EUR</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid cols-3">
+            <div style="display:flex;align-items:flex-end;">
+              <label class="check"><input type="checkbox" id="cod">Наложенный платеж</label>
+            </div>
+            <div>
+              <label for="codAmount">Цена наложенного платежа</label>
+              <input type="number" id="codAmount" name="codAmount" min="0" step="1" placeholder="0" disabled />
+            </div>
+            <div>
+              <label for="codCurrency">Валюта наложенного платежа</label>
+              <select id="codCurrency" name="codCurrency" disabled>
+                <option>KZT</option>
+                <option>RUB</option>
+                <option>USD</option>
+                <option>EUR</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- Объем торга -->
+        <section class="section">
+          <h2>Объем торга</h2>
+          <div class="grid cols-2">
+            <div>
+              <label for="bargain">Скидка/торг</label>
+              <select id="bargain" name="bargain">
+                <option>Нет</option>
+                <option>До 5%</option>
+                <option>До 10%</option>
+                <option>До 15%</option>
+                <option>До 20%</option>
+              </select>
+            </div>
+            <div>
+              <span class="badge" id="bargainHint">Выберите объем торга</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Контакты -->
+        <section class="section">
+          <h2>Контакты</h2>
+          <div class="grid cols-3">
+            <div>
+              <label for="contactName">Имя</label>
+              <input type="text" id="contactName" name="contactName" required />
+              <div class="error" data-error="contactName"></div>
+            </div>
+            <div>
+              <label for="phone">Телефон</label>
+              <input type="text" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required />
+              <div class="error" data-error="phone"></div>
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input type="text" id="email" name="email" placeholder="name@example.com" />
+              <div class="error" data-error="email"></div>
+            </div>
+          </div>
+
+          <label style="margin-top:8px;">Доступен в мессенджерах</label>
+          <div class="checkgroup">
+            <label class="check"><input type="checkbox" value="WhatsApp" checked>WhatsApp</label>
+            <label class="check"><input type="checkbox" value="Telegram">Telegram</label>
+            <label class="check"><input type="checkbox" value="Viber">Viber</label>
+            <label class="check"><input type="checkbox" value="Signal">Signal</label>
+          </div>
+        </section>
+
+        <!-- Дополнительно -->
+        <section class="section">
+          <h2>Дополнительно</h2>
+          <div class="checkgroup">
+            <label class="check"><input type="checkbox" id="loaders">Грузчики</label>
+            <label class="check"><input type="checkbox" id="handling">Погрузка/разгрузка</label>
+            <label class="check"><input type="checkbox" id="seal">Пломба</label>
+            <label class="check"><input type="checkbox" id="tent">Тент/ремни/уголки</label>
+          </div>
+
+          <div class="grid cols-1" style="margin-top:12px;">
+            <div>
+              <label for="description">Описание</label>
+              <textarea id="description" name="description" placeholder="Опишите особенности груза, требования к перевозке и т.д."></textarea>
+            </div>
+          </div>
+
+          <div class="grid cols-2" style="margin-top:12px;">
+            <div>
+              <label for="photo">Фото</label>
+              <input type="file" id="photo" name="photo" accept="image/*" multiple />
+              <div class="files" id="photoList"></div>
+            </div>
+            <div>
+              <label for="docs">Документы</label>
+              <input type="file" id="docs" name="docs" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png" multiple />
+              <div class="files" id="docsList"></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="footer-actions">
+          <button type="button" class="btn" id="addCargoBtn">Добавить груз</button>
+          <span class="muted" id="cargoStats">Груз: 0 / 0 кг / 0 м³</span>
+        </div>
+      </div>
+    </form>
+
+    <!-- Right: Summary -->
+    <aside class="card summary">
+      <div class="body">
+        <h2>Груз</h2>
+        <div class="line"><span class="key">Тип</span><span class="val" id="sumType">-</span></div>
+        <div class="line"><span class="key">Категория</span><span class="val" id="sumCategory">-</span></div>
+        <div class="line"><span class="key">Название</span><span class="val" id="sumTitle">-</span></div>
+        <div class="line"><span class="key">Готовность</span><span class="val" id="sumDate">-</span></div>
+        <div class="line"><span class="key">Регулярность</span><span class="val" id="sumRegularity">-</span></div>
+        <div class="line"><span class="key">Места</span><span class="val" id="sumPlaces">-</span></div>
+        <div class="line"><span class="key">Вес / Объем</span><span class="val" id="sumWeightVolume">-</span></div>
+        <div class="line"><span class="key">Упаковка</span><span class="val" id="sumPacked">Нет</span></div>
+
+        <h3>Маршрут</h3>
+        <div class="line"><span class="key">Откуда</span><span class="val" id="sumFrom">-</span></div>
+        <div class="line"><span class="key">Куда</span><span class="val" id="sumTo">-</span></div>
+        <div class="line"><span class="key">Промежуточные</span><span class="val" id="sumPoints">—</span></div>
+
+        <h3>Транспорт</h3>
+        <div class="line"><span class="key">Кузов</span><span class="val" id="sumBodyTypes">—</span></div>
+        <div class="line"><span class="key">Температура</span><span class="val" id="sumTemp">—</span></div>
+        <div class="line"><span class="key">Загрузка</span><span class="val" id="sumLoading">—</span></div>
+        <div class="line"><span class="key">Выгрузка</span><span class="val" id="sumUnloading">—</span></div>
+        <div class="line"><span class="key">Способ загрузки</span><span class="val" id="sumLoadingMethod">—</span></div>
+        <div class="line"><span class="key">Способ выгрузки</span><span class="val" id="sumUnloadingMethod">—</span></div>
+
+        <h3>Условия</h3>
+        <div class="line"><span class="key">Документы</span><span class="val" id="sumDocsFlags">—</span></div>
+        <div class="line"><span class="key">Оплата</span><span class="val" id="sumPayment">—</span></div>
+        <div class="line"><span class="key">Цена</span><span class="val" id="sumPrice">—</span></div>
+        <div class="line"><span class="key">Наложенный платеж</span><span class="val" id="sumCOD">—</span></div>
+        <div class="line"><span class="key">Торг</span><span class="val" id="sumBargain">—</span></div>
+
+        <h3>Контакты</h3>
+        <div class="line"><span class="key">Имя</span><span class="val" id="sumContactName">—</span></div>
+        <div class="line"><span class="key">Телефон</span><span class="val" id="sumPhone">—</span></div>
+        <div class="line"><span class="key">Email</span><span class="val" id="sumEmail">—</span></div>
+
+        <h3>Дополнительно</h3>
+        <div class="line"><span class="key">Опции</span><span class="val" id="sumExtras">—</span></div>
+        <div class="line"><span class="key">Описание</span><span class="val" id="sumDesc">—</span></div>
+
+        <div class="footer-actions">
+          <button class="btn primary" id="publishBtn">Опубликовать груз</button>
+          <span class="muted" id="publishInfo">Черновик не опубликован</span>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    // Utility
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+    const valueOrDash = (v) => v && v.trim() ? v : "—";
+    const fmtNum = (n) => {
+      const num = Number(n);
+      if (!isFinite(num)) return "0";
+      return new Intl.NumberFormat("ru-RU").format(num);
+    };
+
+    // State
+    const state = {
+      points: [],
+      cargoCount: 0,
+      totalWeight: 0,
+      totalVolume: 0,
+      published: false
+    };
+
+    // Inputs
+    const form = $("#cargoForm");
+    const inputs = {
+      cargoType: $("#cargoType"),
+      category: $("#category"),
+      title: $("#title"),
+      readyDate: $("#readyDate"),
+      regularity: $("#regularity"),
+      places: $("#places"),
+      weight: $("#weight"),
+      volume: $("#volume"),
+      packed: $("#packed"),
+      from: $("#from"),
+      to: $("#to"),
+      tempMode: $("#tempMode"),
+      payment: $("#payment"),
+      price: $("#price"),
+      currency: $("#currency"),
+      cod: $("#cod"),
+      codAmount: $("#codAmount"),
+      codCurrency: $("#codCurrency"),
+      bargain: $("#bargain"),
+      contactName: $("#contactName"),
+      phone: $("#phone"),
+      email: $("#email"),
+      description: $("#description"),
+      photo: $("#photo"),
+      docs: $("#docs"),
+      loaders: $("#loaders"),
+      handling: $("#handling"),
+      seal: $("#seal"),
+      tent: $("#tent")
+    };
+
+    // Summary elements
+    const sum = {
+      type: $("#sumType"),
+      category: $("#sumCategory"),
+      title: $("#sumTitle"),
+      date: $("#sumDate"),
+      regularity: $("#sumRegularity"),
+      places: $("#sumPlaces"),
+      weightVolume: $("#sumWeightVolume"),
+      packed: $("#sumPacked"),
+      from: $("#sumFrom"),
+      to: $("#sumTo"),
+      points: $("#sumPoints"),
+      bodyTypes: $("#sumBodyTypes"),
+      temp: $("#sumTemp"),
+      loading: $("#sumLoading"),
+      unloading: $("#sumUnloading"),
+      loadingMethod: $("#sumLoadingMethod"),
+      unloadingMethod: $("#sumUnloadingMethod"),
+      docsFlags: $("#sumDocsFlags"),
+      payment: $("#sumPayment"),
+      price: $("#sumPrice"),
+      cod: $("#sumCOD"),
+      bargain: $("#sumBargain"),
+      contactName: $("#sumContactName"),
+      phone: $("#sumPhone"),
+      email: $("#sumEmail"),
+      extras: $("#sumExtras"),
+      desc: $("#sumDesc")
+    };
+
+    const pointsInfo = $("#pointsInfo");
+    const addPointBtn = $("#addPoint");
+    const addCargoBtn = $("#addCargoBtn");
+    const cargoStats = $("#cargoStats");
+    const publishBtn = $("#publishBtn");
+    const publishInfo = $("#publishInfo");
+    const bargainHint = $("#bargainHint");
+    const photoList = $("#photoList");
+    const docsList = $("#docsList");
+
+    // Checkgroups
+    const bodyTypes = $$("#bodyTypes input[type='checkbox']");
+    const loadingType = $$("#loadingType input[type='checkbox']");
+    const unloadingType = $$("#unloadingType input[type='checkbox']");
+    const loadingMethod = $$("#loadingMethod input[type='checkbox']");
+    const unloadingMethod = $$("#unloadingMethod input[type='checkbox']");
+
+    // Validation helpers
+    const showError = (name, msg) => {
+      const el = document.querySelector(`[data-error="${name}"]`);
+      if (el) el.textContent = msg || "";
+    };
+    const requireFilled = (name, value, label) => {
+      if (!value || (typeof value === "string" && !value.trim())) {
+        showError(name, `Заполните поле: ${label}`);
+        return false;
+      }
+      showError(name, "");
+      return true;
+    };
+    const isValidEmail = (v) => !v || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    const isValidPhone = (v) => /^\+?[0-9()\-\s]{8,}$/.test(v);
+
+    // Bind basic interactions
+    inputs.cod.addEventListener("change", () => {
+      const on = inputs.cod.checked;
+      inputs.codAmount.disabled = !on;
+      inputs.codCurrency.disabled = !on;
+      updateSummary();
+    });
+
+    inputs.currency.addEventListener("change", () => {
+      // mirror currency to COD by default
+      if (!inputs.cod.checked) {
+        inputs.codCurrency.value = inputs.currency.value;
+      }
+      updateSummary();
+    });
+
+    addPointBtn.addEventListener("click", () => {
+      const p = prompt("Введите промежуточную точку (город, адрес):");
+      if (p && p.trim()) {
+        state.points.push(p.trim());
+        pointsInfo.textContent = `Добавлено: ${state.points.length}`;
+        updateSummary();
+      }
+    });
+
+    // Add cargo aggregates
+    addCargoBtn.addEventListener("click", () => {
+      const w = Number(inputs.weight.value || 0);
+      const v = Number(inputs.volume.value || 0);
+      const places = Number(inputs.places.value || 0);
+      if (w <= 0 || places <= 0) {
+        alert("Укажите корректный вес и количество мест.");
+        return;
+      }
+      state.cargoCount += 1;
+      state.totalWeight += w;
+      state.totalVolume += v;
+      cargoStats.textContent = `Груз: ${state.cargoCount} / ${fmtNum(state.totalWeight)} кг / ${fmtNum(state.totalVolume)} м³`;
+    });
+
+    // File previews
+    const renderFiles = (input, target) => {
+      target.innerHTML = "";
+      const files = Array.from(input.files || []);
+      if (!files.length) return;
+      files.slice(0, 6).forEach(f => {
+        const div = document.createElement("div");
+        div.className = "file";
+        div.textContent = `${f.name} (${fmtNum(f.size)} байт)`;
+        target.appendChild(div);
+      });
+    };
+    inputs.photo.addEventListener("change", () => renderFiles(inputs.photo, photoList));
+    inputs.docs.addEventListener("change", () => renderFiles(inputs.docs, docsList));
+
+    // Live summary
+    const getCheckedValues = (nodes) => nodes.filter(n => n.checked).map(n => n.value);
+    const listOrDash = (arr) => arr.length ? arr.map(v => `<span class="pill">${v}</span>`).join("") : "—";
+
+    const updateSummary = () => {
+      sum.type.textContent = valueOrDash(inputs.cargoType.value);
+      sum.category.textContent = valueOrDash(inputs.category.value);
+      sum.title.textContent = valueOrDash(inputs.title.value);
+      sum.date.textContent = valueOrDash(inputs.readyDate.value);
+      sum.regularity.textContent = valueOrDash(inputs.regularity.value);
+      sum.places.textContent = valueOrDash(inputs.places.value);
+      sum.weightVolume.textContent = `${fmtNum(inputs.weight.value || 0)} кг / ${fmtNum(inputs.volume.value || 0)} м³`;
+      sum.packed.textContent = inputs.packed.checked ? "Да" : "Нет";
+
+      sum.from.textContent = valueOrDash(inputs.from.value);
+      sum.to.textContent = valueOrDash(inputs.to.value);
+      sum.points.innerHTML = state.points.length ? state.points.map(p => `<span class="pill">${p}</span>`).join("") : "—";
+
+      sum.bodyTypes.innerHTML = listOrDash(getCheckedValues(bodyTypes));
+      sum.temp.textContent = valueOrDash(inputs.tempMode.value);
+      sum.loading.innerHTML = listOrDash(getCheckedValues(loadingType));
+      sum.unloading.innerHTML = listOrDash(getCheckedValues(unloadingType));
+      sum.loadingMethod.innerHTML = listOrDash(getCheckedValues(loadingMethod));
+      sum.unloadingMethod.innerHTML = listOrDash(getCheckedValues(unloadingMethod));
+
+      const flags = [
+        inputs.insurance.checked ? "Страховка" : null,
+        inputs.cmr.checked ? "CMR" : null,
+        inputs.tir.checked ? "TIR" : null,
+        inputs.adr.checked ? "ADR" : null
+      ].filter(Boolean);
+      sum.docsFlags.innerHTML = listOrDash(flags);
+
+      const price = inputs.price.value ? `${fmtNum(inputs.price.value)} ${inputs.currency.value}` : "—";
+      sum.price.textContent = price;
+      sum.payment.textContent = inputs.payment.value || "—";
+      sum.bargain.textContent = inputs.bargain.value || "—";
+
+      const codText = inputs.cod.checked
+        ? `${fmtNum(inputs.codAmount.value || 0)} ${inputs.codCurrency.value}`
+        : "Нет";
+      sum.cod.textContent = codText;
+
+      sum.contactName.textContent = valueOrDash(inputs.contactName.value);
+      sum.phone.textContent = valueOrDash(inputs.phone.value);
+      sum.email.textContent = valueOrDash(inputs.email.value);
+
+      const extras = [
+        inputs.loaders.checked ? "Грузчики" : null,
+        inputs.handling.checked ? "Погрузка/разгрузка" : null,
+        inputs.seal.checked ? "Пломба" : null,
+        inputs.tent.checked ? "Тент/ремни/уголки" : null
+      ].filter(Boolean);
+      sum.extras.innerHTML = listOrDash(extras);
+
+      sum.desc.textContent = valueOrDash(inputs.description.value);
+
+      bargainHint.textContent = inputs.bargain.value === "Нет"
+        ? "Торг не предусмотрен"
+        : `Допустимый торг: ${inputs.bargain.value}`;
+    };
+
+    // Bind live update
+    [
+      ...Object.values(inputs),
+      ...bodyTypes, ...loadingType, ...unloadingType, ...loadingMethod, ...unloadingMethod
+    ].forEach(el => {
+      const ev = (el.type === "checkbox" || el.type === "file") ? "change" : "input";
+      el.addEventListener(ev, updateSummary);
+    });
+
+    // Initial summary
+    updateSummary();
+
+    // Publish simulation
+    publishBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      // minimal validation
+      const ok =
+        requireFilled("cargoType", inputs.cargoType.value, "Тип груза") &
+        requireFilled("category", inputs.category.value, "Категория") &
+        requireFilled("title", inputs.title.value, "Название") &
+        requireFilled("readyDate", inputs.readyDate.value, "Дата готовности") &
+        requireFilled("places", inputs.places.value, "Кол-во мест") &
+        requireFilled("weight", inputs.weight.value, "Вес") &
+        requireFilled("from", inputs.from.value, "Откуда") &
+        requireFilled("to", inputs.to.value, "Куда") &
+        requireFilled("contactName", inputs.contactName.value, "Имя") &
+        requireFilled("phone", inputs.phone.value, "Телефон");
+
+      if (!isValidPhone(inputs.phone.value)) {
+        showError("phone", "Введите корректный номер телефона");
+      } else {
+        showError("phone", "");
+      }
+
+      if (!isValidEmail(inputs.email.value)) {
+        showError("email", "Введите корректный email");
+      } else {
+        showError("email", "");
+      }
+
+      if (!ok || !isValidPhone(inputs.phone.value) || !isValidEmail(inputs.email.value)) {
+        alert("Проверьте поля формы.");
+        return;
+      }
+
+      state.published = true;
+      publishInfo.textContent = "Груз опубликован";
+      publishInfo.style.color = "var(--accent)";
+      publishBtn.disabled = true;
+      publishBtn.textContent = "Опубликовано";
+    });
+  </script>
+
+<footer class="site-footer">
+  <div class="container">
+    
+    <div class="footer-left">
+      © 2025 QAZAQSTAN LOGISTICA — все права защищены
+    </div>
+
+    <div class="footer-nav">
+      <a href="about(test)/about.html">О нас</a>
+      <a href="newspage/index.html">Новости</a>
+      <a href="mape/map.html">Карта</a>
+      <a href="stats(test)/statss.html">Статистика</a>
+    </div>
+
+    <div class="footer-social">
+      <a href="#">📘</a>
+      <a href="#">📱</a>
+      <a href="#">✉️</a>
+    </div>
+
+  </div>
+</footer>
+
+
+</body>
+</html>
+
+
+
+  
+

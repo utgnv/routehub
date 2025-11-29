@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Карта грузов — QAZAQSTAN LOGISTICA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="/mape/script.js"></script>
+</head>
+
+<body>
+
+  <header class="container">
+    <div class="logo"><a href="../index.html"><img src="https://i.ibb.co/mrJCF9Zp/21-20251108074839.png" alt="logo"></a></div>
+    <nav>
+      <a href="../index.html">Главная</a>
+      <a href="../newspage/index.html">Новости</a>
+      <a href="../stats(test)/statss.html">Статистика</a>
+      <a href="../about(test)/about.html">О нас</a>
+    </nav>
+  </header>
+
+  <section class="page-hero container">
+    <h1>Карта грузов</h1>
+    <p>Просматривайте расположение грузов и транспортных средств в реальном времени</p>
+  </section>
+
+  <div class="container">
+    <div id="map"></div>
+  </div>
+
+<script>
+const map = L.map('map').setView([48.0196, 66.9237], 5); // Центр Казахстана
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  // Пример маркеров грузов
+  const cargos = [
+    { coords: [51.1694, 71.4491], title: 'Груз 1' },
+    { coords: [43.2220, 76.8512], title: 'Груз 2' },
+    { coords: [50.2800, 57.1667], title: 'Груз 3' }
+  ];
+
+  cargos.forEach(cargo => {
+    L.marker(cargo.coords).addTo(map).bindPopup(`<b>${cargo.title}</b>`);
+  });
+
+</script>
+
+
+  <footer class="site-footer">
+  <div class="container">
+    
+    <div class="footer-left">
+      © 2025 QAZAQSTAN LOGISTICA — все права защищены
+    </div>
+
+    <div class="footer-nav">
+      <a href="about(test)/about.html">О нас</a>
+      <a href="newspage/index.html">Новости</a>
+      <a href="mape/map.html">Карта</a>
+      <a href="stats(test)/statss.html">Статистика</a>
+    </div>
+
+    <div class="footer-social">
+      <a href="#">📘</a>
+      <a href="#">📱</a>
+      <a href="#">✉️</a>
+    </div>
+
+  </div>
+</footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Статистика — QAZAQSTAN LOGISTICA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(120deg, #0b0f14, #1b2630, #0b0f14);
+      background-size: 200% 200%;
+      animation: gradientMove 8s ease infinite;
+      color: #fff;
+    }
+
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+    }
+
+    .logo img {
+      width: 130px;
+    }
+
+    nav a {
+      color: #d6d6d6;
+      margin-left: 24px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    .page-hero {
+      padding-top: 120px;
+      text-align: center;
+    }
+
+    .page-hero h1 {
+      font-size: 44px;
+      margin-bottom: 12px;
+    }
+
+    .page-hero p {
+      font-size: 18px;
+      opacity: 0.8;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .stat-card {
+      background: #0f1b23;
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      transition: 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
+    }
+
+    .stat-card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .chart-container {
+      margin-top: 40px;
+      background: #0f1b23;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      padding: 20px;
+      opacity: 0.6;
+    }
+
+    @media(max-width:768px) {
+      .page-hero h1 {
+        font-size: 32px;
+      }
+    }
+
+.site-footer {
+  background: #0b0f14;
+  padding: 40px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin-top: 80px;
+}
+
+.site-footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  font-size: 16px;
+  color: rgba(255,255,255,0.7);
+}
+
+.footer-nav {
+  display: flex;
+  gap: 26px;
+}
+
+.footer-nav a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.footer-nav a:hover {
+  color: #00ffff;
+  text-shadow: 0 0 6px rgba(0,255,255,0.7);
+}
+
+.footer-social {
+  display: flex;
+  gap: 16px;
+}
+
+.footer-social a {
+  font-size: 20px;
+  color: rgba(255,255,255,0.7);
+  transition: 0.3s;
+}
+
+.footer-social a:hover {
+  color: #00ffff;
+}
+
+
+
+  </style>
+</head>
+
+<body>
+
+  <header class="container">
+    <div class="logo"><a href="../index.html"><img src="https://i.ibb.co/mrJCF9Zp/21-20251108074839.png" alt="logo"></a></div>
+    <nav>
+      <a href="../index.html">Главная</a>
+        <a href="../about(test)/about.html">О нас</a>
+        <a href="../newspage/index.html">Новости</a>
+        <a href="../mape/map.html">Карта грузов</a>
+      
+    </nav>
+  </header>
+
+  <section class="page-hero container">
+    <h1>Статистика</h1>
+    <p>Аналитика по грузам, транспортным средствам и пользователям</p>
+  </section>
+
+  <div class="container stats-grid">
+    <div class="stat-card">
+      <h3>Грузы в день</h3>
+      <p>200 000</p>
+    </div>
+    <div class="stat-card">
+      <h3>Активные машины</h3>
+      <p>100 000</p>
+    </div>
+    <div class="stat-card">
+      <h3>Пользователи платформы</h3>
+      <p>300 000</p>
+    </div>
+  </div>
+
+  <div class="container chart-container">
+    <canvas id="cargoChart"></canvas>
+  </div>
+  <div class="container chart-container">
+    <canvas id="usersChart"></canvas>
+  </div>
+
+
+  <script>
+    const ctxCargo = document.getElementById('cargoChart').getContext('2d');
+    const cargoChart = new Chart(ctxCargo, {
+      type: 'bar',
+      data: {
+        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'],
+        datasets: [{
+          label: 'Грузы',
+          data: [120000, 150000, 170000, 180000, 190000, 200000],
+          backgroundColor: 'rgba(0, 200, 255, 0.6)',
+          borderColor: 'rgba(0, 200, 255, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+    const ctxUsers = document.getElementById('usersChart').getContext('2d');
+    const usersChart = new Chart(ctxUsers, {
+      type: 'line',
+      data: {
+        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'],
+        datasets: [{
+          label: 'Пользователи',
+          data: [200000, 220000, 250000, 270000, 290000, 300000],
+          fill: false,
+          borderColor: 'rgba(0, 255, 255, 1)',
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: false
+          }
+        }
+      }
+    });
+  </script>
+
+<footer class="site-footer">
+  <div class="container">
+    
+    <div class="footer-left">
+      © 2025 QAZAQSTAN LOGISTICA — все права защищены
+    </div>
+
+    <div class="footer-nav">
+      <a href="/about(test)/about.html">О нас</a>
+      <a href="newspage/index.html">Новости</a>
+      <a href="mape/map.html">Карта</a>
+      <a href="stats(test)/statss.html">Статистика</a>
+    </div>
+
+    <div class="footer-social">
+      <a href="#">📘</a>
+      <a href="#">📱</a>
+      <a href="#">✉️</a>
+    </div>
+
+  </div>
+</footer>
+
+
+</body>
+
+</html>

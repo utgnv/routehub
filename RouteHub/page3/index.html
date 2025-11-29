@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Выбор заказов</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="selection.css">
+</head>
+<body  style="background: linear-gradient(180deg, #0b0f14 0%, #1b2630 100%);">
+  <header class="navbar">
+    <div class="container nav-inner">
+      <div class="logo">
+        <a href="../index.html">
+         <img src="https://i.ibb.co.com/mrJCF9Zp/21-20251108074839.png" alt="logo">
+        </a>
+      </div>
+
+  <main class="container" style="color: black">
+    <section class="search-panel">
+      <div class="found" style="color: white">Найдено <strong id="foundCount">—</strong> груза</div>
+
+      <div class="controls">
+        <div class="filters">
+          <select id="fFrom"><option value=''>Откуда</option></select>
+          <select id="fTo"><option value=''>Куда</option></select>
+          <select id="fBody"><option value=''>Кузов</option></select>
+          <input id="fDate" type="date" />
+          <button id="btnSearch" class="btn">Обновить</button>
+          <button id="btnReset" class="btn ghost">Сбросить</button>
+        </div>
+
+        <div class="sort-area">
+          <label style="color: white; ">Упорядочить по</label>
+          <select id="sortSel">
+            <option value="date">времени обновления</option>
+            <option value="price">ставке</option>
+            <option value="km">расстоянию</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section id="listArea" class="list-area">
+      <!-- Сюда будут рендериться строки-объявления -->
+    </section>
+
+    <nav class="pagination" id="pager"></nav>
+  </main>
+
+  <footer>
+    <div class="container">© QL — демо</div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+  <script src="selection.js"></script>
+</body>
+</html>
